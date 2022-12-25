@@ -1469,3 +1469,38 @@ airflow.exceptions.AirflowTimetableInvalid: Exactly 5 or 6 columns has to be spe
 [2022-12-25T15:36:40.914+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:36:40.914+0000] {dag.py:2676} INFO - Sync 1 DAGs
 [2022-12-25T15:36:40.932+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:36:40.932+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
 [2022-12-25T15:36:40.944+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.117 seconds
+[2022-12-25T15:37:11.167+0000] {processor.py:153} INFO - Started process (PID=2143) to work on /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:11.170+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/ingestion_dag.py for tasks to queue
+[2022-12-25T15:37:11.171+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:11.171+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:11.195+0000] {processor.py:753} INFO - DAG(s) dict_keys(['data_ingestion_to_cloud']) retrieved from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:11.228+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:11.228+0000] {dag.py:2676} INFO - Sync 1 DAGs
+[2022-12-25T15:37:11.245+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:11.245+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
+[2022-12-25T15:37:11.258+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.096 seconds
+[2022-12-25T15:37:13.228+0000] {processor.py:153} INFO - Started process (PID=2144) to work on /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:13.229+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/ingestion_dag.py for tasks to queue
+[2022-12-25T15:37:13.230+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:13.230+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:13.256+0000] {processor.py:753} INFO - DAG(s) dict_keys(['data_ingestion_to_cloud']) retrieved from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:13.282+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:13.281+0000] {dag.py:2676} INFO - Sync 1 DAGs
+[2022-12-25T15:37:13.303+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:13.303+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
+[2022-12-25T15:37:13.316+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.090 seconds
+[2022-12-25T15:37:37.573+0000] {processor.py:153} INFO - Started process (PID=2169) to work on /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:37.576+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/ingestion_dag.py for tasks to queue
+[2022-12-25T15:37:37.577+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:37.577+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:37.605+0000] {processor.py:753} INFO - DAG(s) dict_keys(['data_ingestion_to_cloud']) retrieved from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:37:37.632+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:37.632+0000] {dag.py:2676} INFO - Sync 1 DAGs
+[2022-12-25T15:37:37.648+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:37:37.647+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
+[2022-12-25T15:37:37.660+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.091 seconds
+[2022-12-25T15:38:07.969+0000] {processor.py:153} INFO - Started process (PID=2202) to work on /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:38:07.971+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/ingestion_dag.py for tasks to queue
+[2022-12-25T15:38:07.972+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:07.972+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:38:07.996+0000] {processor.py:753} INFO - DAG(s) dict_keys(['data_ingestion_to_cloud']) retrieved from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:38:08.081+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:08.080+0000] {dag.py:2676} INFO - Sync 1 DAGs
+[2022-12-25T15:38:08.108+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:08.108+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
+[2022-12-25T15:38:08.125+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.159 seconds
+[2022-12-25T15:38:38.356+0000] {processor.py:153} INFO - Started process (PID=2229) to work on /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:38:38.358+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/ingestion_dag.py for tasks to queue
+[2022-12-25T15:38:38.359+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:38.358+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:38:38.375+0000] {processor.py:753} INFO - DAG(s) dict_keys(['data_ingestion_to_cloud']) retrieved from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:38:38.402+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:38.401+0000] {dag.py:2676} INFO - Sync 1 DAGs
+[2022-12-25T15:38:38.417+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:38.417+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
+[2022-12-25T15:38:38.429+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.076 seconds
