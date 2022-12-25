@@ -1,1 +1,4 @@
 ingestion_venv/
+.env
+data/
+dags/__pycache__
