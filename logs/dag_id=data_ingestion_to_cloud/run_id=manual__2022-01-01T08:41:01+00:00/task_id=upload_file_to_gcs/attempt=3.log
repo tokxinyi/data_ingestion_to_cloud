@@ -1,0 +1,48 @@
+[2022-12-26T11:32:34.526+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: data_ingestion_to_cloud.upload_file_to_gcs manual__2022-01-01T08:41:01+00:00 [queued]>
+[2022-12-26T11:32:34.533+0000] {taskinstance.py:1087} INFO - Dependencies all met for <TaskInstance: data_ingestion_to_cloud.upload_file_to_gcs manual__2022-01-01T08:41:01+00:00 [queued]>
+[2022-12-26T11:32:34.533+0000] {taskinstance.py:1283} INFO - 
+--------------------------------------------------------------------------------
+[2022-12-26T11:32:34.534+0000] {taskinstance.py:1284} INFO - Starting attempt 3 of 3
+[2022-12-26T11:32:34.534+0000] {taskinstance.py:1285} INFO - 
+--------------------------------------------------------------------------------
+[2022-12-26T11:32:34.542+0000] {taskinstance.py:1304} INFO - Executing <Task(PythonOperator): upload_file_to_gcs> on 2022-01-01 08:41:01+00:00
+[2022-12-26T11:32:34.549+0000] {standard_task_runner.py:55} INFO - Started process 11280 to run task
+[2022-12-26T11:32:34.552+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_to_cloud', 'upload_file_to_gcs', 'manual__2022-01-01T08:41:01+00:00', '--job-id', '31', '--raw', '--subdir', 'DAGS_FOLDER/ingestion_dag.py', '--cfg-path', '/tmp/tmpxgf_dgzc']
+[2022-12-26T11:32:34.554+0000] {standard_task_runner.py:83} INFO - Job 31: Subtask upload_file_to_gcs
+[2022-12-26T11:32:34.601+0000] {task_command.py:389} INFO - Running <TaskInstance: data_ingestion_to_cloud.upload_file_to_gcs manual__2022-01-01T08:41:01+00:00 [running]> on host f33a20ab9138
+[2022-12-26T11:32:34.645+0000] {taskinstance.py:1513} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=data_ingestion_to_cloud
+AIRFLOW_CTX_TASK_ID=upload_file_to_gcs
+AIRFLOW_CTX_EXECUTION_DATE=2022-01-01T08:41:01+00:00
+AIRFLOW_CTX_TRY_NUMBER=3
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-01-01T08:41:01+00:00
+[2022-12-26T11:32:37.652+0000] {_metadata.py:104} WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+[2022-12-26T11:32:40.664+0000] {_metadata.py:104} WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+[2022-12-26T11:32:40.681+0000] {_metadata.py:104} WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 111] Connection refused
+[2022-12-26T11:32:40.685+0000] {_default.py:302} WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[2022-12-26T11:32:40.691+0000] {taskinstance.py:1772} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 175, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 192, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/ingestion.py", line 31, in upload_file_to_gcs
+    storage_client = storage.Client()
+  File "/home/airflow/.local/lib/python3.7/site-packages/google/cloud/storage/client.py", line 165, in __init__
+    _http=_http,
+  File "/home/airflow/.local/lib/python3.7/site-packages/google/cloud/client/__init__.py", line 320, in __init__
+    _ClientProjectMixin.__init__(self, project=project, credentials=credentials)
+  File "/home/airflow/.local/lib/python3.7/site-packages/google/cloud/client/__init__.py", line 268, in __init__
+    project = self._determine_default(project)
+  File "/home/airflow/.local/lib/python3.7/site-packages/google/cloud/client/__init__.py", line 287, in _determine_default
+    return _determine_default_project(project)
+  File "/home/airflow/.local/lib/python3.7/site-packages/google/cloud/_helpers/__init__.py", line 152, in _determine_default_project
+    _, project = google.auth.default()
+  File "/home/airflow/.local/lib/python3.7/site-packages/google/auth/_default.py", line 646, in default
+    raise exceptions.DefaultCredentialsError(_HELP_MESSAGE)
+google.auth.exceptions.DefaultCredentialsError: Could not automatically determine credentials. Please set GOOGLE_APPLICATION_CREDENTIALS or explicitly create credentials and re-run the application. For more information, please see https://cloud.google.com/docs/authentication/getting-started
+[2022-12-26T11:32:40.730+0000] {taskinstance.py:1327} INFO - Marking task as FAILED. dag_id=data_ingestion_to_cloud, task_id=upload_file_to_gcs, execution_date=20220101T084101, start_date=20221226T113234, end_date=20221226T113240
+[2022-12-26T11:32:40.752+0000] {standard_task_runner.py:105} ERROR - Failed to execute job 31 for task upload_file_to_gcs (Could not automatically determine credentials. Please set GOOGLE_APPLICATION_CREDENTIALS or explicitly create credentials and re-run the application. For more information, please see https://cloud.google.com/docs/authentication/getting-started; 11280)
+[2022-12-26T11:32:40.802+0000] {local_task_job.py:159} INFO - Task exited with return code 1
+[2022-12-26T11:32:40.820+0000] {taskinstance.py:2582} INFO - 0 downstream tasks scheduled from follow-on schedule check

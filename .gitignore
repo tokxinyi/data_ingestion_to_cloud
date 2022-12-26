@@ -2,3 +2,4 @@ ingestion_venv/
 .env
 data/
 dags/__pycache__
+google_credentials.json

@@ -1504,3 +1504,10 @@ airflow.exceptions.AirflowTimetableInvalid: Exactly 5 or 6 columns has to be spe
 [2022-12-25T15:38:38.402+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:38.401+0000] {dag.py:2676} INFO - Sync 1 DAGs
 [2022-12-25T15:38:38.417+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:38:38.417+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
 [2022-12-25T15:38:38.429+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.076 seconds
+[2022-12-25T15:39:08.779+0000] {processor.py:153} INFO - Started process (PID=2266) to work on /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:39:08.781+0000] {processor.py:743} INFO - Processing file /opt/airflow/dags/ingestion_dag.py for tasks to queue
+[2022-12-25T15:39:08.782+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:39:08.782+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:39:08.804+0000] {processor.py:753} INFO - DAG(s) dict_keys(['data_ingestion_to_cloud']) retrieved from /opt/airflow/dags/ingestion_dag.py
+[2022-12-25T15:39:08.833+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:39:08.833+0000] {dag.py:2676} INFO - Sync 1 DAGs
+[2022-12-25T15:39:08.850+0000] {logging_mixin.py:137} INFO - [2022-12-25T15:39:08.850+0000] {dag.py:3427} INFO - Setting next_dagrun for data_ingestion_to_cloud to None, run_after=None
+[2022-12-25T15:39:08.860+0000] {processor.py:175} INFO - Processing /opt/airflow/dags/ingestion_dag.py took 0.085 seconds
