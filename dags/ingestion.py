@@ -6,7 +6,7 @@ def download_file(instance_date, **kwargs):
     print(instance_date)
     instance_date = datetime.strptime(instance_date, '%Y-%m-%d').date()
     year = instance_date.year
-    mth = instance_date.month
+    mth = str(instance_date.month).zfill(2)
     filename = f'yellow_tripdata_{year}-{mth}.parquet'
     url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{filename}'
     filepath = '/opt/airflow/data/'
