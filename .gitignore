@@ -4,3 +4,4 @@ data/
 logs/
 dags/__pycache__
 google_credentials.json
+test.ipynb
