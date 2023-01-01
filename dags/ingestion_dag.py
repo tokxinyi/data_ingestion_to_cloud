@@ -12,8 +12,8 @@ with DAG (
     dag_id = 'data_ingestion_to_cloud',
     schedule_interval = '@monthly',
     start_date = datetime(2021,1,1),
-    end_date = datetime(2022,10,1),
-    catchup = False,
+    end_date = datetime(2021,12,1),
+    catchup = True
 ) as dag:
 
     download_file = PythonOperator(
@@ -49,12 +49,4 @@ with DAG (
         }
     )
 
-    move_file_to_archive = PythonOperator(
-        task_id = 'move_file_to_archive',
-        python_callable = archive_file,
-        op_kwargs = {
-            'bucket_name': 'datalake-zoomcamp-terraform'
-        }
-    )
-
-    download_file >> upload_file_to_gcs >> bigquery_external_table_task >> move_file_to_archive
+    download_file >> upload_file_to_gcs >> bigquery_external_table_task
