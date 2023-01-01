@@ -3,7 +3,6 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.google.cloud.operators.bigquery import (
     BigQueryCreateExternalTableOperator
 )
-from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
 from datetime import datetime
 from ingestion import *
 
@@ -18,7 +17,7 @@ with DAG (
 
     download_file = PythonOperator(
         task_id = 'download_file',
-        python_callable = download_file,
+        python_callable = download_yellow_taxi_file,
         provide_context = True,
         op_kwargs = {
             "instance_date": '{{ ds }}'

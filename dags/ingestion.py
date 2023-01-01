@@ -1,9 +1,9 @@
 from datetime import datetime
 import subprocess
 from google.cloud import storage
-from airflow.models import Variable
+# from airflow.models import Variable
 
-def download_file(instance_date, **kwargs):
+def download_yellow_taxi_file(instance_date, **kwargs):
     print(instance_date)
     instance_date = datetime.strptime(instance_date, '%Y-%m-%d').date()
     year = instance_date.year
@@ -18,10 +18,31 @@ def download_file(instance_date, **kwargs):
     ti = kwargs['ti']
     ti.xcom_push(key='filename', value=filename)
 
-    # save the filename value into Variables
-    # Variable.set('filename', filename)
+def download_fhv_file(instance_date, **kwargs):
+    print(instance_date)
+    instance_date = datetime.strptime(instance_date, '%Y-%m-%d').date()
+    year = instance_date.year
+    mth = str(instance_date.month).zfill(2)
+    filename = f'fhv_tripdata_{year}-{mth}.parquet'
+    url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{filename}'
+    filepath = '/opt/airflow/data/'
+    bash_command = f'curl {url} -o {filepath}{filename}'
+    subprocess.run(bash_command.split())
 
+    # push the filename value into Xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='filename', value=filename)
 
+def download_zone_file(**kwargs):
+    filename = 'taxi+_zone_lookup.csv'
+    url = f'https://d37ci6vzurychx.cloudfront.net/misc/{filename}'
+    filepath = '/opt/airflow/data/'
+    bash_command = f'curl {url} -o {filepath}{filename}'
+    subprocess.run(bash_command.split())
+
+    # push the filename value into Xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='filename', value=filename)
 
 def upload_file_to_gcs(bucket_name, **kwargs):
     """Uploads a file to the bucket."""
