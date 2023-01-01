@@ -1,12 +1,12 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.google.cloud.operators.bigquery import (
-    BigQueryCreateEmptyDatasetOperator,
-    BigQueryDeleteDatasetOperator,
+    BigQueryCreateExternalTableOperator
 )
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
 from datetime import datetime
 from ingestion import *
+
 
 with DAG (
     dag_id = 'data_ingestion_to_cloud',
@@ -29,10 +29,32 @@ with DAG (
         task_id = 'upload_file_to_gcs',
         python_callable = upload_file_to_gcs,
         provide_context = True,
-        #TODO: get the filename - with the correct year and month and pass it into the function
         op_kwargs = {
             'bucket_name': 'datalake-zoomcamp-terraform'
         }       
     )
 
-    download_file >> upload_file_to_gcs
+    bigquery_external_table_task = BigQueryCreateExternalTableOperator(
+        task_id="bigquery_external_table_task",
+        table_resource={
+            "tableReference": {
+                "projectId": "zoomcamp-terraform",
+                "datasetId": "ny_taxi",
+                "tableId": "yellow_taxi_ext",
+            },
+            "externalDataConfiguration": {
+                "sourceFormat": "PARQUET",
+                "sourceUris": [f"gs://datalake-zoomcamp-terraform/raw/*"]
+            }
+        }
+    )
+
+    move_file_to_archive = PythonOperator(
+        task_id = 'move_file_to_archive',
+        python_callable = archive_file,
+        op_kwargs = {
+            'bucket_name': 'datalake-zoomcamp-terraform'
+        }
+    )
+
+    download_file >> upload_file_to_gcs >> bigquery_external_table_task >> move_file_to_archive
