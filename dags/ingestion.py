@@ -33,6 +33,21 @@ def download_fhv_file(instance_date, **kwargs):
     ti = kwargs['ti']
     ti.xcom_push(key='filename', value=filename)
 
+def download_green_taxi_file(instance_date, **kwargs):
+    print(instance_date)
+    instance_date = datetime.strptime(instance_date, '%Y-%m-%d').date()
+    year = instance_date.year
+    mth = str(instance_date.month).zfill(2)
+    filename = f'green_tripdata_{year}-{mth}.parquet'
+    url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{filename}'
+    filepath = '/opt/airflow/data/'
+    bash_command = f'curl {url} -o {filepath}{filename}'
+    subprocess.run(bash_command.split())
+
+    # push the filename value into Xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='filename', value=filename)
+
 def download_zone_file(**kwargs):
     filename = 'taxi+_zone_lookup.csv'
     url = f'https://d37ci6vzurychx.cloudfront.net/misc/{filename}'
@@ -58,11 +73,25 @@ def upload_file_to_gcs(bucket_name, **kwargs):
     print(filename)
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(f'raw/{filename}')
 
-    blob.upload_from_filename(f'/opt/airflow/data/{filename}')
+
+    if ('yellow_tripdata' in filename):
+        blob = bucket.blob(f'raw/yellow_taxi/{filename}')
+        blob.upload_from_filename(f'/opt/airflow/data/{filename}')
+
+    elif ('fhv_tripdata' in filename):
+        blob = bucket.blob(f'raw/fhv/{filename}')
+        blob.upload_from_filename(f'/opt/airflow/data/{filename}')
+    
+    elif ('green_tripdata' in filename):
+        blob = bucket.blob(f'raw/green_taxi/{filename}')
+        blob.upload_from_filename(f'/opt/airflow/data/{filename}')
+    
+    else:
+        blob = bucket.blob(f'raw/{filename}')
+        blob.upload_from_filename(f'/opt/airflow/data/{filename}')
 
     print(
-        f"File {filename} uploaded to {f'raw/{filename}'}."
+        f"File {filename} uploaded to {f'{filename}'}."
     )
 
