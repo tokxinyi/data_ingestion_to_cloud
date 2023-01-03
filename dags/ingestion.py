@@ -1,6 +1,7 @@
 from datetime import datetime
 import subprocess
 from google.cloud import storage
+import pandas as pd
 # from airflow.models import Variable
 
 def download_yellow_taxi_file(instance_date, **kwargs):
@@ -17,6 +18,12 @@ def download_yellow_taxi_file(instance_date, **kwargs):
     # push the filename value into Xcom
     ti = kwargs['ti']
     ti.xcom_push(key='filename', value=filename)
+
+    #  drop airport_fee column because inconsistent data types between the files
+    df = pd.read_parquet(f'/opt/airflow/data/{filename}', engine='pyarrow', columns=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'PULocationID', 'DOLocationID', 'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge', 'total_amount', 'congestion_surcharge'])
+
+    df.to_parquet(f'/opt/airflow/data/{filename}', engine='pyarrow')
+
 
 def download_fhv_file(instance_date, **kwargs):
     print(instance_date)
@@ -47,6 +54,7 @@ def download_green_taxi_file(instance_date, **kwargs):
     # push the filename value into Xcom
     ti = kwargs['ti']
     ti.xcom_push(key='filename', value=filename)
+
 
 def download_zone_file(**kwargs):
     filename = 'taxi+_zone_lookup.csv'
