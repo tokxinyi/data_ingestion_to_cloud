@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.google.cloud.operators.bigquery import (
-    BigQueryCreateExternalTableOperator
+    BigQueryCreateExternalTableOperator, BigQueryInsertJobOperator
 )
 from datetime import datetime
 from ingestion import *
@@ -49,4 +49,41 @@ with DAG (
         }
     )
 
-    download_file >> upload_file_to_gcs >> bigquery_external_table_task
+    # renaming the common columns across taxi data for consistency
+    partition_table_query = (
+        "create or replace table ny_taxi.yellow_taxi_paritioned partition by date(pickup_datetime) as "
+        "select \
+            VendorID,\
+            tpep_pickup_datetime as pickup_datetime,\
+            tpep_dropoff_datetime as dropoff_datetime,\
+                passenger_count,\
+                trip_distance,\
+                RatecodeID,\
+                store_and_fwd_flag,\
+                PULocationID,\
+                DOLocationID,\
+                payment_type,\
+                fare_amount,\
+                extra,\
+                mta_tax,\
+                tip_amount,\
+                tolls_amount,\
+                improvement_surcharge,\
+                total_amount,\
+                congestion_surcharge\
+        from ny_taxi.yellow_taxi_ext"
+    )
+
+    #TODO insert bigquery job operator to partition the table
+    partition_bq_table = BigQueryInsertJobOperator(
+        task_id="partition_bq_table",
+        configuration={
+            "query": {
+                "query": partition_table_query,
+                "useLegacySql": False,
+            }
+        }
+    )
+
+    #TODO insert bigquery job operator to partition the table
+    download_file >> upload_file_to_gcs >> bigquery_external_table_task >> partition_bq_table

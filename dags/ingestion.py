@@ -40,6 +40,11 @@ def download_fhv_file(instance_date, **kwargs):
     ti = kwargs['ti']
     ti.xcom_push(key='filename', value=filename)
 
+    #  drop airport_fee column because inconsistent data types between the files
+    df = pd.read_parquet(f'/opt/airflow/data/{filename}', engine='pyarrow', columns=['dispatching_base_num', 'pickup_datetime', 'dropOff_datetime', 'PUlocationID', 'SR_Flag', 'Affiliated_base_number'])
+
+    df.to_parquet(f'/opt/airflow/data/{filename}', engine='pyarrow')
+
 def download_green_taxi_file(instance_date, **kwargs):
     print(instance_date)
     instance_date = datetime.strptime(instance_date, '%Y-%m-%d').date()
@@ -77,7 +82,6 @@ def upload_file_to_gcs(bucket_name, **kwargs):
     # destination_blob_name = "storage-object-name"
     ti = kwargs['ti']
     filename = ti.xcom_pull(key='filename', task_ids=['download_file'])[0]
-    # filename = Variable.get('filename')
     print(filename)
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
